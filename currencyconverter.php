@@ -21,7 +21,7 @@
       // TODO Figure out a way to provide this data in the HTML
       $currencyRateDOPtoEUR = 0.014;
       
-      if (isset($_POST['peso'])) {
+      if (isset($_POST['peso']) && !empty($_POST['peso'])) {
          $peso = $_POST['peso'];
          $euro = $_POST['euro'];
          $euroValue = round($peso*$currencyRateDOPtoEUR, 2);   
@@ -36,9 +36,18 @@
       <h1>Am I being ripped off in the <span>Dominican Republic</span> ?</h1>
       <p>Check  the value here:</p>
       <form class="converter" action="currencyconverter.php" method="post">
-         <input type="number" name="peso" id="peso" min="0" step="0.01" value="<?php echo isset($_POST['peso']) ? $_POST['peso']: ''; ?>" placeholder="Dominican Peso"> <label for="peso">DOP</label>
-         <input type="submit" name="submit" value="Convert to">
-         <input type="number" name="euro" id="euro" placeholder="Euro" step="0.01" value="<?php echo isset($euroValue) ? $euroValue: ''; ?>" readonly> <label for="euro">EUR</label>
+         <div class="localValue">
+            <input type="number" name="peso" id="peso" min="0" step="0.01" value="<?php echo isset($_POST['peso']) ? $_POST['peso']: null; ?>" placeholder="Dominican Peso">
+            <label for="peso">DOP</label>
+         </div>
+         <div class="buttons">
+            <input type="submit" name="submit" value="Convert to">
+            <input type="submit" name ="switch" value="⇆"> 
+         </div> 
+         <div class="convertedValue">
+            <input type="number" name="euro" id="euro" placeholder="Euro" step="0.01" value="<?php echo isset($euroValue) ? $euroValue: null; ?>" readonly>
+            <label for="euro">EUR</label>
+         </div>
       </form>
    </main>
    
